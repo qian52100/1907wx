@@ -59,8 +59,10 @@ Route::prefix('menu/')->group(function () {
     Route::any('menu_show','Admin\MenuController@index');  //菜单展示
     Route::any('menu_add','Admin\MenuController@create');  //菜单添加
 });
+
 Route::any('aaa','WeixinController@groupSending');  //微信群发
 Route::get('wx/test','WeixinController@test');  //测试
 Route::get('wx/auth','WeixinController@auth');  //接收code
 
 Route::any('wx/gitpull','WeixinController@gitpull');  //接收code
+Route::any('/createMenu','WeixinController@createMenu');  //接收code

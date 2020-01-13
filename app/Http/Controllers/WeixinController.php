@@ -144,36 +144,36 @@ class WeixinController extends Controller
                "name"  => "签到",
                "url"  => "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx98fcb5c895c99886&redirect_uri=http%3A%2F%2F1906liqianqian.comcto.com%2Fwx%2Fauth&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
            ],
-//           [
-//               "name"  => "功能开发",
-//               "sub_button"=>[
-//                   [
-//                       "type"  => "view",
-//                       "name"  => "百度",
-//                       "url"   => "http://www.baidu.com/"
-//                   ],
-//                   [
-//                       "type"  => "view",
-//                       "name"  => "京东",
-//                       "url"   => "http://www.jd.com/"
-//                   ],
-//                   [
-//                       "type"  => "pic_photo_or_album",
-//                       "name"  => "拍照或相册发图",
-//                       "key"   => "photo"
-//                   ],
-//                   [
-//                       "type"  => "scancode_push",
-//                       "name"  => "扫一扫",
-//                       "key"  => "scan111"
-//                   ],
-//                   [
-//                       "type"  => "pic_weixin",
-//                       "name"  => "微信相册发图",
-//                       "key"  =>  "photo"
-//                   ]
-//               ]
-//           ],
+           [
+               "name"  => "功能开发",
+               "sub_button"=>[
+                   [
+                       "type"  => "view",
+                       "name"  => "百度",
+                       "url"   => "http://www.baidu.com/"
+                   ],
+                   [
+                       "type"  => "view",
+                       "name"  => "京东",
+                       "url"   => "http://www.jd.com/"
+                   ],
+                   [
+                       "type"  => "pic_photo_or_album",
+                       "name"  => "拍照或相册发图",
+                       "key"   => "photo"
+                   ],
+                   [
+                       "type"  => "scancode_push",
+                       "name"  => "扫一扫",
+                       "key"  => "scan111"
+                   ],
+                   [
+                       "type"  => "pic_weixin",
+                       "name"  => "微信相册发图",
+                       "key"  =>  "photo"
+                   ]
+               ]
+           ],
 //           [
 //               "name"  => "发送位置",
 //               "type"  => "location_select",
@@ -282,6 +282,10 @@ class WeixinController extends Controller
         //转为数组
         $user_info_arr=json_decode($json_user_info,true);
         echo '<pre>';print_r($user_info_arr);echo '</pre>';
+
+        //实现签到功能 记录用户签到
+        echo $user_info_arr['nickname'].'签到成功'.'签到时间:'.date('Y-m-d H:i:s');
+        echo '<hr>';
     }
 
     public function gitpull(){
