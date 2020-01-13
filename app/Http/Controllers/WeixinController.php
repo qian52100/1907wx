@@ -263,12 +263,39 @@ class WeixinController extends Controller
         $json_data=file_get_contents($url);
         $arr=json_decode($json_data,true);
         echo '<pre>';print_r($arr);echo '</pre>';
+        /*
+         * Array
+            (
+                [access_token] => 29_xG8A1usJaZvkL3HtDOqdOTlHSk3HyeegjWGsMY7MSrOcL2Kkjq1jkFNc2ON43rO33XUzRo_SgR4lH58JnF2fvg
+                [expires_in] => 7200
+                [refresh_token] => 29_1R7R_MwyFIR3OReUbqAevPodEQvtv_HvLgsju2vU3Ypu-9gUdaQn-KJNqbNOnBudExWnAjKHmRmNgoMrFbHqrw
+                [openid] => oc_ZXv_Sb5N2seYTwQTOeylWHUxw
+                [scope] => snsapi_userinfo
+            )
+         */
 
         //获取用户信息
         $url2='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
         $json_user_info=file_get_contents($url2);
         $user_info_arr=json_decode($json_user_info);
         echo '<pre>';print_r($user_info_arr);echo '</pre>';
+        /*
+         * stdClass Object
+            (
+                [openid] => oc_ZXv_Sb5N2seYTwQTOeylWHUxw
+                [nickname] => Ripen
+                [sex] => 2
+                [language] => zh_CN
+                [city] => Seoul
+                [province] => Seoul
+                [country] => KR
+                [headimgurl] => http://thirdwx.qlogo.cn/mmopen/vi_32/LzTELic11LKzicHU8ePicJ5p85YgCU730Qpuu12mBVar1BElNablbb0B8ZqC7ktc4HsuBUbIfatAN4jbeOH1UeXHg/132
+                [privilege] => Array
+            (
+           )
+
+         )
+         */
     }
 
     public function gitpull(){
