@@ -52,6 +52,7 @@ Route::prefix('channel/')->group(function () {
     Route::any('store','Admin\ChannelController@store');  //渠道执行添加
     Route::any('list','Admin\ChannelController@list');  //渠道执行添加
 
+    
 });
 //菜单管理
 Route::prefix('menu/')->group(function () {
