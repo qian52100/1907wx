@@ -228,7 +228,7 @@ class WeixinController extends Controller
             "touser" => $open_list,
             "msgtype" => "text",
             "text" => [
-                "content" => "谢谢您关注"
+                "content" =>date('Y-m-d H:i:s'). "谢谢您关注"
             ]
         ];
         //转为字符串 第二个参数为中文格式
