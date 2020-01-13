@@ -61,3 +61,6 @@ Route::prefix('menu/')->group(function () {
 Route::any('aaa','WeixinController@groupSending');  //微信群发
 Route::get('wx/test','WeixinController@test');  //测试
 Route::get('wx/auth','WeixinController@auth');  //接收code
+
+
+Route::any('wx/gitpull','WeixinController@gitpull');  //接收code

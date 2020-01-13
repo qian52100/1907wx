@@ -263,6 +263,17 @@ class WeixinController extends Controller
         $json_data=file_get_contents($url);
         $arr=json_decode($json_data,true);
         echo '<pre>';print_r($arr);echo '</pre>';
+
+        //获取用户信息
+        $url2='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
+        $json_user_info=file_get_contents($url2);
+        $user_info_arr=json_decode($json_user_info);
+        echo '<pre>';print_r($user_info_arr);echo '</pre>';
+    }
+
+    public function gitpull(){
+        $git="cd /data/wwwroot/default/1907wx && git pull ";
+        shell_exec($git);
     }
 
 }
