@@ -250,6 +250,7 @@ class WeixinController extends Controller
         //获取code  需scope为 snsapi_userinfo
         $appid=env('WC_APPID');
         $redirect_uri=urlencode(env('WC_AUTH_REDIRECT_URI'));
+        //请求接口
         $url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$appid.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
         echo $url;
     }
@@ -263,6 +264,7 @@ class WeixinController extends Controller
         $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WC_APPID').'&secret='.env('WC_APPSEC').'&code='.$code.'&grant_type=authorization_code';
         //请求方式
         $json_data=file_get_contents($url);
+        //转为数组
         $arr=json_decode($json_data,true);
         echo '<pre>';print_r($arr);echo '</pre>';
 
@@ -289,7 +291,7 @@ class WeixinController extends Controller
 
         //将用户信息保存至Redis Hash
         $key='h:user_info:'.$user_info_arr['openid'];
-        Reids::hMset($key,$user_info_arr);
+        Redis::Hmset($key,$user_info_arr);  //设置哈希表
         echo "<prev>";print_r($user_info_arr);echo "</prev>";
 
 
@@ -299,16 +301,18 @@ class WeixinController extends Controller
         //将openid加入有序集合
         Redis::Zadd($redis_key,time(),$user_info_arr['openid']);
         echo $user_info_arr['nickname'].'签到成功'.'签到时间:'.date('Y-m-d H:i:s');echo '<hr>';
+        //返回所有openid
         $user_list=Redis::zrange($redis_key,0,-1);echo "<hr>";
         echo "<prev>";print_r($user_list);echo "</prev>";
 
         //显示用户头像
         foreach($user_list as $k=>$v){
-            $key='h:user_info:'.$v;
-            $u=Redis::hGetAll($key);
+            $key='h:user_info:'.$v;  //取出openid
+            $u=Redis::hGetAll($key);  //取所有键 值
             if(empty($u)){
                 continue;
             }
+            //显示头像
             echo "<img src='".$u['headimgurl']."'>";
         }
     }
