@@ -302,10 +302,11 @@ class WeixinController extends Controller
         Redis::Zadd($redis_key,time(),$user_info_arr['openid']);
         echo $user_info_arr['nickname'].'签到成功'.'签到时间:'.date('Y-m-d H:i:s');echo '<hr>';
         //返回所有openid
-        $user_list=Redis::zrange($redis_key,0,-1);echo "<hr>";
-        echo "<prev>";print_r($user_list);echo "</prev>";
+        $user_list=Redis::zrange($redis_key,0,-1);
+        //echo "<hr>";
+        //echo "<prev>";print_r($user_list);echo "</prev>";
 
-        //显示用户头像
+        //显示所有用户头像
         foreach($user_list as $k=>$v){
             $key='h:user_info:'.$v;  //取出openid
             $u=Redis::hGetAll($key);  //取所有键 值
