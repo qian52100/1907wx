@@ -9,6 +9,7 @@ use App\Model\News;
 use App\Model\Users;
 use App\Model\Channel;
 use App\Model\Media;
+use Illuminate\Support\Facades\Redis;
 class WeixinController extends Controller
 {
     public function index(){
@@ -242,7 +243,7 @@ class WeixinController extends Controller
            echo "发送成功";
        }else{
            //返回错误信息
-        echo date("Y-m-d H:i:s").$output['errmsg'];
+           echo '错误信息： ' . $output['errmsg'];
        }
     }
     public function test(){
@@ -284,6 +285,10 @@ class WeixinController extends Controller
         echo '<pre>';print_r($user_info_arr);echo '</pre>';
 
         //实现签到功能 记录用户签到
+        //有序集合
+        $redis_key='checkin:'.date('Y-m-d');
+        //将openid加入有序集合  
+        Redis::Zadd($redis_key,time(),$user_info_arr['openid']);
         echo $user_info_arr['nickname'].'签到成功'.'签到时间:'.date('Y-m-d H:i:s');
         echo '<hr>';
     }
