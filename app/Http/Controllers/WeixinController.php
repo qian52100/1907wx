@@ -246,6 +246,7 @@ class WeixinController extends Controller
        }
     }
     public function test(){
+        //获取code  需scope为 snsapi_userinfo
         $appid=env('WC_APPID');
         $redirect_uri=urlencode(env('WC_AUTH_REDIRECT_URI'));
         $url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$appid.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
@@ -257,7 +258,7 @@ class WeixinController extends Controller
     public function auth(){
         //接收code
         $code=$_GET['code'];
-        //换取access_token
+        //换取access_token 请求接口
         $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WC_APPID').'&secret='.env('WC_APPSEC').'&code='.$code.'&grant_type=authorization_code';
         //请求方式
         $json_data=file_get_contents($url);
@@ -274,28 +275,13 @@ class WeixinController extends Controller
             )
          */
 
-        //获取用户信息
+        //获取用户信息 根据openid和access_token 请求接口
         $url2='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
+        //请求方式
         $json_user_info=file_get_contents($url2);
-        $user_info_arr=json_decode($json_user_info);
+        //转为数组
+        $user_info_arr=json_decode($json_user_info,true);
         echo '<pre>';print_r($user_info_arr);echo '</pre>';
-        /*
-         * stdClass Object
-            (
-                [openid] => oc_ZXv_Sb5N2seYTwQTOeylWHUxw
-                [nickname] => Ripen
-                [sex] => 2
-                [language] => zh_CN
-                [city] => Seoul
-                [province] => Seoul
-                [country] => KR
-                [headimgurl] => http://thirdwx.qlogo.cn/mmopen/vi_32/LzTELic11LKzicHU8ePicJ5p85YgCU730Qpuu12mBVar1BElNablbb0B8ZqC7ktc4HsuBUbIfatAN4jbeOH1UeXHg/132
-                [privilege] => Array
-            (
-           )
-
-         )
-         */
     }
 
     public function gitpull(){
