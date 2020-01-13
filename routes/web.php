@@ -59,3 +59,5 @@ Route::prefix('menu/')->group(function () {
     Route::any('menu_add','Admin\MenuController@create');  //菜单添加
 });
 Route::any('aaa','WeixinController@groupSending');  //微信群发
+Route::get('wx/test','WeixinController@test');  //测试
+Route::get('wx/auth','WeixinController@auth');  //接收code

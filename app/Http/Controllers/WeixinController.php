@@ -59,15 +59,15 @@ class WeixinController extends Controller
             }
             Wechat::reponseText($xmlObj,"欢迎".$nickname.$sex."关注");
         }
-        //文本回复的是图片
+        //文本回复的是图片  下载图片
         if($xmlObj->MsgType=='image'){
             $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType);
         }
-        //文本回复的是视频
+        //文本回复的是视频 下载视频
         if($xmlObj->MsgType=='video'){
             $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType);
         }
-        //文本回复的是语音
+        //文本回复的是语音 下载语音
         if($xmlObj->MsgType=='voice'){
             $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType);
         }
@@ -236,7 +236,7 @@ class WeixinController extends Controller
         //发送post请求
         $output=Curl::Post($url,$postData);   //json数据包 返回错误码 错误信息
         //转化为数组
-        $output=json_decode($output,true);  
+        $output=json_decode($output,true);
         //错误码为0 成功
        if($output['errcode']==0){
            echo "发送成功";
@@ -244,6 +244,25 @@ class WeixinController extends Controller
            //返回错误信息
         echo date("Y-m-d H:i:s").$output['errmsg'];
        }
+    }
+    public function test(){
+        $appid=env('WC_APPID');
+        $redirect_uri=urlencode(env('WC_AUTH_REDIRECT_URI'));
+        $url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$appid.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+        echo $url;
+    }
+    /**
+     *接收网页授权code
+    */
+    public function auth(){
+        //接收code
+        $code=$_GET['code'];
+        //换取access_token
+        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WC_APPID').'&secret='.env('WC_APPSEC').'&code='.$code.'&grant_type=authorization_code';
+        //请求方式
+        $json_data=file_get_contents($url);
+        $arr=json_decode($json_data,true);
+        echo '<pre>';print_r($arr);echo '</pre>';
     }
 
 }
