@@ -52,7 +52,7 @@ Route::prefix('channel/')->group(function () {
     Route::any('store','Admin\ChannelController@store');  //渠道执行添加
     Route::any('list','Admin\ChannelController@list');  //渠道执行添加
 
-    
+
 });
 //菜单管理
 Route::prefix('menu/')->group(function () {
@@ -62,6 +62,8 @@ Route::prefix('menu/')->group(function () {
 Route::any('aaa','WeixinController@groupSending');  //微信群发
 Route::get('wx/test','WeixinController@test');  //测试
 Route::get('wx/auth','WeixinController@auth');  //接收code
+
+
 
 
 Route::any('wx/gitpull','WeixinController@gitpull');  //接收code
