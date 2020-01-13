@@ -140,9 +140,9 @@ class WeixinController extends Controller
     $menu=[
        "button"  => [
            [
-               "type"  => "click",
-               "name"  => "1906",
-               "key"  => "weixin"
+               "type"  => "view",
+               "name"  => "签到",
+               "url"  => "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx98fcb5c895c99886&redirect_uri=http%3A%2F%2F1906liqianqian.comcto.com%2Fwx%2Fauth&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
            ],
            [
                "name"  => "功能开发",
