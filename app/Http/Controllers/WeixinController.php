@@ -265,6 +265,7 @@ class WeixinController extends Controller
         $json_data=file_get_contents($url);
         $arr=json_decode($json_data,true);
         echo '<pre>';print_r($arr);echo '</pre>';
+
         /*
          * Array
             (
@@ -276,6 +277,7 @@ class WeixinController extends Controller
             )
          */
 
+
         //获取用户信息 根据openid和access_token 请求接口
         $url2='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
         //请求方式
@@ -284,13 +286,31 @@ class WeixinController extends Controller
         $user_info_arr=json_decode($json_user_info,true);
         echo '<pre>';print_r($user_info_arr);echo '</pre>';
 
+
+        //将用户信息保存至Redis Hash
+        $key='h:user_info:'.$user_info_arr['openid'];
+        Reids::hMset($key,$user_info_arr);
+        echo "<prev>";print_r($user_info_arr);echo "</prev>";
+
+
         //实现签到功能 记录用户签到
-        //有序集合
+        //Redis 有序集合
         $redis_key='checkin:'.date('Y-m-d');
-        //将openid加入有序集合  
+        //将openid加入有序集合
         Redis::Zadd($redis_key,time(),$user_info_arr['openid']);
-        echo $user_info_arr['nickname'].'签到成功'.'签到时间:'.date('Y-m-d H:i:s');
-        echo '<hr>';
+        echo $user_info_arr['nickname'].'签到成功'.'签到时间:'.date('Y-m-d H:i:s');echo '<hr>';
+        $user_list=Redis::zrange($redis_key,0,-1);echo "<hr>";
+        echo "<prev>";print_r($user_list);echo "</prev>";
+
+        //显示用户头像
+        foreach($user_list as $k=>$v){
+            $key='h:user_info:'.$v;
+            $u=Redis::hGetAll($key);
+            if(empty($u)){
+                continue;
+            }
+            echo "<img src='".$u['headimgurl']."'>";
+        }
     }
 
     public function gitpull(){
