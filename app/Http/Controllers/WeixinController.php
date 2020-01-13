@@ -174,11 +174,11 @@ class WeixinController extends Controller
                    ]
                ]
            ],
-           [
-               "name"  => "发送位置",
-               "type"  => "location_select",
-               "key"   => "location"
-           ]
+//           [
+//               "name"  => "发送位置",
+//               "type"  => "location_select",
+//               "key"   => "location"
+//           ]
        ]
     ];
     //中文菜单名 40033 JSON_UNESCAPED_UNICODE
