@@ -9,6 +9,7 @@ use App\Model\News;
 use App\Model\Users;
 use App\Model\Channel;
 use App\Model\Media;
+use App\Model\Message;
 use Illuminate\Support\Facades\Redis;
 class WeixinController extends Controller
 {
@@ -62,15 +63,15 @@ class WeixinController extends Controller
         }
         //文本回复的是图片  下载图片
         if($xmlObj->MsgType=='image'){
-            $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType);
+            $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
         }
         //文本回复的是视频 下载视频
         if($xmlObj->MsgType=='video'){
-            $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType);
+            $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
         }
         //文本回复的是语音 下载语音
         if($xmlObj->MsgType=='voice'){
-            $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType);
+            $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
         }
         //文本回复最新添加的新闻内容
         if($xmlObj->MsgType=='text'){
@@ -191,7 +192,7 @@ class WeixinController extends Controller
     var_dump($arr);
 }
     //下载图片/微信/语音到微信服务器
-    protected function downLoadImg($mediaId,$msgType){
+    protected function downLoadImg($mediaId,$msgType,$xmlObj){
         //获取access_token
         $access_token=Wechat::getAccessToken();
         //调接口
