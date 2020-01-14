@@ -201,18 +201,25 @@ class WeixinController extends Controller
         if($msgType=='image'){
             //生成随机图片名字
             $name=date("YmdHis").rand(1111,9999).'.jpg';
-
+            //图片/视频存放路径
+            $imgUrl="img/".$name;
+            //写入文件
+            file_put_contents($imgUrl,$query);
         }else if($msgType=='video'){
             //生成随机视频名字
             $name=date("YmdHis").rand(1111,9999).'.mp4';
+            //图片/视频存放路径
+            $imgUrl="video/".$name;
+            //写入文件
+            file_put_contents($imgUrl,$query);
         }else if($msgType=='voice'){
              //生成随机语音名字
              $name=date("YmdHis").rand(1111,9999).'.mp3';
+            //图片/视频存放路径
+            $imgUrl="voice/".$name;
+            //写入文件
+            file_put_contents($imgUrl,$query);
         }
-        //图片/视频存放路径
-        $imgUrl="img/".$name;
-        //写入文件
-        file_put_contents($imgUrl,$query);
     }
     //群发消息 通过 用户表openid
     public function groupSending(){
