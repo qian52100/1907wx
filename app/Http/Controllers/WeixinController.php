@@ -220,6 +220,12 @@ class WeixinController extends Controller
             $imgUrl="voice/".$name;
             //写入文件
             file_put_contents($imgUrl,$query);
+        }else if($msgType=='text'){
+            $data['openid']=$xmlObj->ToUserName;
+            $data['username']=$xmlObj->FromUserName;
+            $data['content']=$xmlObj->Content;
+            $data['create_time']=$xmlObj->CreateTime;
+            $res=Message::insert($data);
         }
     }
     //群发消息 通过 用户表openid
