@@ -73,6 +73,9 @@ class WeixinController extends Controller
         if($xmlObj->MsgType=='voice'){
             $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
         }
+        if($xmlObj->MsgType=='text'){
+            $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
+        }
         //文本回复最新添加的新闻内容
         if($xmlObj->MsgType=='text'){
             $content=trim($xmlObj->Content);
