@@ -61,6 +61,7 @@ class WeixinController extends Controller
             }
             Wechat::reponseText($xmlObj,"欢迎".$nickname.$sex."关注");
         }
+
         //文本回复的是图片  下载图片
         if($xmlObj->MsgType=='image'){
             $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
@@ -73,6 +74,7 @@ class WeixinController extends Controller
         if($xmlObj->MsgType=='voice'){
             $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
         }
+        //文本回复文本 入库
         if($xmlObj->MsgType=='text'){
             $this->downLoadImg($xmlObj->MediaId,$xmlObj->MsgType,$xmlObj);
         }
@@ -105,6 +107,7 @@ class WeixinController extends Controller
                 }
             }
         }
+
         //取关回复
         if($xmlObj->MsgType=="event" && $xmlObj->Event=="unsubscribe"){
             $res=Wechat::getUserInfoByOpenId($xmlObj->FromUserName);  //获取用户信息  调接口
@@ -328,6 +331,7 @@ class WeixinController extends Controller
         }
     }
 
+    //自动上线
     public function gitpull(){
         $git="cd /data/wwwroot/default/1907wx && git pull ";
         shell_exec($git);
