@@ -15,9 +15,9 @@
 });*/
 //微信模块
 
-// Route::get('phpinfo', function () {
-//    phpinfo();
-// });
+ Route::get('phpinfo', function () {
+    phpinfo();
+});
 
 //微信后台登陆 接口
 Route::get('/','Admin\LoginController@login');  //登陆页
