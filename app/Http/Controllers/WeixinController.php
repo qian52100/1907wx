@@ -105,6 +105,9 @@ class WeixinController extends Controller
                     }
                     Wechat::reponseText($xmlObj,$value);
                 }
+            }else{
+                $value='暂无相关新闻';
+                Wechat::reponseText($xmlObj,$value);
             }
         }
 
@@ -190,7 +193,7 @@ class WeixinController extends Controller
     $arr = json_decode($output,true);
     var_dump($arr);
 }
-    //下载图片/微信/语音到微信服务器
+    //下载图片/微信/语音到微信服务器  文本消息入库
     protected function downLoadImg($mediaId,$msgType,$xmlObj){
         //获取access_token
         $access_token=Wechat::getAccessToken();
