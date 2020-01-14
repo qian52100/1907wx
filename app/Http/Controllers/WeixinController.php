@@ -100,10 +100,11 @@ class WeixinController extends Controller
                     }
                     Wechat::reponseText($xmlObj,$value);
                 }
-            }else{
-                $value="暂无相关新闻";
-                Wechat::reponseText($xmlObj,$value);
             }
+//            else{
+//                $value="暂无相关新闻";
+//                Wechat::reponseText($xmlObj,$value);
+//            }
         }
         //取关回复
         if($xmlObj->MsgType=="event" && $xmlObj->Event=="unsubscribe"){
