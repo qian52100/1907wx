@@ -281,9 +281,9 @@ class WeixinController extends Controller
 
 
         //获取用户信息 根据openid和access_token 请求接口
-        $url2='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
+        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
         //请求方式
-        $json_user_info=file_get_contents($url2);
+        $json_user_info=file_get_contents($url);
         //转为数组
         $user_info_arr=json_decode($json_user_info,true);
         echo '<pre>';print_r($user_info_arr);echo '</pre>';
