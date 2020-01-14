@@ -91,10 +91,6 @@ class WeixinController extends Controller
             $content=trim($xmlObj->Content);
             if(mb_strpos($content,'新闻＋')!==false){
                 $news=ltrim($content,'新闻＋');
-                if($news===false){
-                    $value="暂无相关新闻";
-                    Wechat::reponseText($xmlObj,$value);
-                }
                 $info=News::where([['n_title','like',"%$news%"]])->get();
                 if($info){
                     $value = '';
