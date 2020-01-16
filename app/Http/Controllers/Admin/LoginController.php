@@ -143,9 +143,6 @@ class LoginController extends Controller
                 //密码不相等
                 echo "<script>alert('绑定成功');location.href='/user_login';</script>";die;
             }
-        }else{
-            echo "<script>alert('用户不存在');location.href='/user_login';</script>";die;
-
         }
     }
 }
