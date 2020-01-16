@@ -181,7 +181,7 @@ class WeixinController extends Controller
          [
            "type"  => "view",
            "name"  => "绑定账号",
-           "url"  => 'http://www.wechat.com/user_login'
+           "url"  => 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx98fcb5c895c99886&redirect_uri='.urlencode(env('http://1906liqianqian.comcto.com/user_login')).'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
            ]
        ]
     ];
