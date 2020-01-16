@@ -36,13 +36,13 @@
 
         <form class="m-t" role="form" action="{{url('/login/dologin')}}" method="post">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="用户名" name="account">
+                <input type="text" class="form-control" placeholder="用户名" name="account" id="account">
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" placeholder="密码" name="pwd">
             </div>
             <div class="form-group">
-                <input type="text" name="code" >&nbsp;<button type="button" class="btn btn-primary" id="sendCode">验证码</button>
+                <input type="text" name="code" placeholder="微信验证码" >&nbsp;<button type="button" class="btn btn-primary" id="sendCode">验证码</button>
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
 
@@ -62,6 +62,19 @@
 <script src="/static/jquery.js"></script>
 <script>
     $(function(){
-        alert(1)
+        $(document).on('click','#sendCode',function(){
+            var account=$("#account").val();
+            if(account==''){
+                alert('用户名必填');
+                return false;
+            }
+            $.post(
+                "{{url('login/test')}}",
+                {account:account},
+                function(res){
+                    alert(res);
+                }
+            )
+        })
     })
 </script>
