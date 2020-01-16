@@ -42,7 +42,7 @@
                 <input type="password" class="form-control" placeholder="密码" name="pwd">
             </div>
             <div class="form-group">
-                <input type="text"  name="openid" >&nbsp;<button type="button" class="btn btn-primary">验证码</button>
+                <input type="text" name="code" >&nbsp;<button type="button" class="btn btn-primary" id="sendCode">验证码</button>
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
 
@@ -58,5 +58,10 @@
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
 </body>
-
 </html>
+<script src="/static/jquery.js"></script>
+<script>
+    $(function(){
+        alert(1)
+    })
+</script>
