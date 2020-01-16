@@ -70,4 +70,6 @@ Route::any('/createMenu','WeixinController@createMenu');  //菜单
 Route::any('access_token','WeixinController@access_token');  //获取access_token
 Route::any('login/test','Admin\LoginController@test');  //模板消息
 
-Route::view('/user_login','login');
+Route::any('/user_login','Admin\LoginController@user_login');  //用户绑定登陆
+
+Route::any('/user_index','Admin\LoginController@user_index');  //入库 openid

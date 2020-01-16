@@ -104,7 +104,35 @@ class LoginController extends Controller
         }
     }
     //绑定账号
-    public function send(){
+    public function user_login(){
+        //接收code
+        $code=$_GET['code'];
+        //换取access_token 请求接口
+        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WC_APPID').'&secret='.env('WC_APPSEC').'&code='.$code.'&grant_type=authorization_code';
+        //请求方式
+        $json_data=file_get_contents($url);
+        //转为数组
+        $arr=json_decode($json_data,true);
+
+        //获取用户信息 根据openid和access_token 请求接口
+        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
+        //请求方式
+        $json_user_info=file_get_contents($url);
+        //转为数组
+        $user_info_arr=json_decode($json_user_info,true);
+        $openid=$user_info_arr['openid'];
+        session(['openid'=>$openid]);
+        return view('login');
+    }
+    //根据openid入库
+    public function user_index(){
+//        $account=request()->account;
+//        $pwd=request()->pwd;
+//        $where=[
+//          ['account','=',$account],
+//          ['pwd','=',$pwd]
+//        ];
+        echo 111;
 
     }
 }

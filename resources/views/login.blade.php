@@ -34,7 +34,7 @@
         </div>
         <h3>欢迎使用 hAdmin</h3>
 
-        <form class="m-t" role="form" action="{{url('/login/dologin')}}" method="post">
+        <form class="m-t" role="form" action="{{url('/user_index')}}" method="post">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="用户名" name="account">
             </div>
