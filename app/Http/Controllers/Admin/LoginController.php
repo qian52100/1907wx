@@ -14,7 +14,6 @@ class LoginController extends Controller
         return view('wechat.login');
     }
 
-
     public function dologin(){
         $data=request()->except('_token');
         $info=Login::where('account',$data['account'])->first();
@@ -23,8 +22,12 @@ class LoginController extends Controller
             $last_error_time=$info['last_error_time'];
             $time=time();
             if($info['pwd']==$data['pwd']){
-                
-                if($data['code']==$info['code']){
+                    //验证验证码
+                    $codeSession=session('code');
+                    if($codeSession!=$data['code']){
+                        echo "<script>alert('验证码错误！！');location.href='/';</script>";die;
+                    }
+
                     //密码正确
                     if($error_num>=3&&$last_error_time<3600){
                         $min=60-ceil(($time-$last_error_time)/60);
@@ -33,10 +36,6 @@ class LoginController extends Controller
                     //错误次数清零 时间改为null
                     $res=Login::where('id',$info['id'])->update(['error_num'=>0,'last_error_time'=>null]);
                     echo "<script>alert('登陆成功');location.href='/wechat';</script>";
-
-                }else{
-                    echo "<script>alert('输入验证码与获取验证码不一致');location.href='/';</script>";
-                }
 
             }else{
                 //密码错误超过1小时
@@ -70,6 +69,8 @@ class LoginController extends Controller
     public function test(){
         $account=request()->account;
         $code=rand(1000,9999);
+        //存验证码
+        session(['code'=>$code]);
         $access_token=Wechat::getAccessToken();
         //请求接口
         $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
@@ -95,6 +96,15 @@ class LoginController extends Controller
         $args=json_encode($args,JSON_UNESCAPED_UNICODE);
         //发送请求
         $res=Curl::Post($url,$args);
-        dump($res);
+        $res=json_decode($res,true);
+        if($res['errcode']=='0'){
+            echo '1';
+        }else{
+            echo '2';
+        }
+    }
+    //绑定账号
+    public function send(){
+
     }
 }

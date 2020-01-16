@@ -36,20 +36,12 @@
 
         <form class="m-t" role="form" action="{{url('/login/dologin')}}" method="post">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="用户名" name="account" id="account">
+                <input type="text" class="form-control" placeholder="用户名" name="account">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="密码" name="pwd" id="pwd">
-            </div>
-            <div class="form-group">
-                <input type="text" name="code" placeholder="微信验证码" >&nbsp;<button type="button" class="btn btn-primary" id="sendCode">发送验证码</button>
+                <input type="password" class="form-control" placeholder="密码" name="pwd" >
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-
-
-            <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
-            </p>
-
         </form>
     </div>
 </div>
@@ -59,29 +51,4 @@
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
 </body>
 </html>
-<script src="/static/jquery.js"></script>
-<script>
-    $(function(){
-        $(document).on('click','#sendCode',function(){
-            var account=$("#account").val();
-            var pwd=$("#pwd").val();
-            if(account==''){
-                alert('用户名必填');
-                return false;
-            }
-            if(pwd==''){
-                alert('密码必填');
-                return;
-            }
-            $.post(
-                "{{url('login/test')}}",
-                {account:account},
-                function(res){
-                    if(res=='1'){
-                        alert('发送成功')
-                    }
-                }
-            )
-        })
-    })
-</script>
+
