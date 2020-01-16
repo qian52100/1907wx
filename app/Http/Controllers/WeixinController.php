@@ -181,7 +181,7 @@ class WeixinController extends Controller
          [
            "type"  => "view",
            "name"  => "绑定账号",
-           "url"  => 'https://www.baidu.com'
+           "url"  => 'http://www.soso.com/'
            ]
        ]
     ];
