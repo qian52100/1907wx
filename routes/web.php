@@ -66,3 +66,8 @@ Route::get('wx/auth','WeixinController@auth');  //接收code
 
 Route::any('wx/gitpull','WeixinController@gitpull');  //自动上线
 Route::any('/createMenu','WeixinController@createMenu');  //菜单
+
+Route::any('access_token','WeixinController@access_token');  //获取access_token
+Route::any('login/test','Admin\LoginController@test');  //模板消息
+
+

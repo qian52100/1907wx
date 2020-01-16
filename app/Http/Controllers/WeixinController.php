@@ -340,4 +340,9 @@ class WeixinController extends Controller
         shell_exec($git);
     }
 
+    //获取access_token
+    public function access_token(){
+        $access_token=Wechat::getAccessToken();
+    }
+
 }

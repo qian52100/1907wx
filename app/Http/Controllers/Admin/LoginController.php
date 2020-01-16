@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Login;
+use App\Tools\Wechat;
+use App\Tools\Curl;
+
 class LoginController extends Controller
 {
     public function login(){
@@ -20,6 +23,7 @@ class LoginController extends Controller
             $last_error_time=$info['last_error_time'];
             $time=time();
             if($info['pwd']==$data['pwd']){
+
                 //密码正确
                 if($error_num>=3&&$last_error_time<3600){
                     $min=60-ceil(($time-$last_error_time)/60);
@@ -54,5 +58,35 @@ class LoginController extends Controller
             echo "<script>alert('账户或密码错误');location.href='/login';</script>";die;
         }
 
+    }
+
+    //模板消息
+    public function test(){
+        $access_token=Wechat::getAccessToken();
+        //请求接口
+        $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
+        //请求参数
+        $args=[
+            'touser'=>'oc_ZXv_Sb5N2seYTwQTOeylWHUxw',
+            'template_id'=>'iB53OFkD3YN8uJ3Z5LBSl9cHwrWG_Il243WhMz5s3k8',
+            'data'=>[
+                'name'=>[
+                    'value'=>'张三',
+                    'color'=>'#173177',
+                ],
+                'code'=>[
+                    'value'=>'1234',
+                    'color'=>'#173177',
+                ],
+                'time'=>[
+                    'value'=>'5分钟内有效',
+                    'color'=>'#173177',
+                ],
+            ],
+        ];
+        $args=json_encode($args,JSON_UNESCAPED_UNICODE);
+        //发送请求
+        $res=Curl::Post($url,$args);
+        dump($res);
     }
 }
