@@ -126,13 +126,26 @@ class LoginController extends Controller
     }
     //根据openid入库
     public function user_index(){
-//        $account=request()->account;
-//        $pwd=request()->pwd;
-//        $where=[
-//          ['account','=',$account],
-//          ['pwd','=',$pwd]
-//        ];
-        echo 111;
+        $account=request()->account;
+        $pwd=request()->pwd;
+        $openid=session('openid');
+        $where=[
+          ['account','=',$account],
+          ['pwd','=',$pwd]
+        ];
+        $res=Login::where($where)->first();
+        if($res){
+            //密码相等
+            if($res['pwd']==$pwd){
+                Login::where($where)->update(['openid'=>$openid]);
+                echo "<script>alert('绑定成功');location.href='';</script>";die;
+            }else{
+                //密码不相等
+                echo "<script>alert('绑定成功');location.href='/user_login';</script>";die;
+            }
+        }else{
+            echo "<script>alert('用户不存在');location.href='/user_login';</script>";die;
 
+        }
     }
 }
