@@ -72,7 +72,7 @@
                 "{{url('login/test')}}",
                 {account:account},
                 function(res){
-                    alert(res);
+                    alert('发送成功');
                 }
             )
         })
