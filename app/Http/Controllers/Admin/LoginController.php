@@ -107,22 +107,27 @@ class LoginController extends Controller
     public function user_login(){
         //接收code
         $code=$_GET['code'];
-        //换取access_token 请求接口
-        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WC_APPID').'&secret='.env('WC_APPSEC').'&code='.$code.'&grant_type=authorization_code';
-        //请求方式
-        $json_data=file_get_contents($url);
-        //转为数组
-        $arr=json_decode($json_data,true);
+        if($code){
+            //换取access_token 请求接口
+            $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WC_APPID').'&secret='.env('WC_APPSEC').'&code='.$code.'&grant_type=authorization_code';
+            //请求方式
+            $json_data=file_get_contents($url);
+            //转为数组
+            $arr=json_decode($json_data,true);
 
-        //获取用户信息 根据openid和access_token 请求接口
-        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
-        //请求方式
-        $json_user_info=file_get_contents($url);
-        //转为数组
-        $user_info_arr=json_decode($json_user_info,true);
-        $openid=$user_info_arr['openid'];
-        session(['openid'=>$openid]);
-        return view('login');
+            //获取用户信息 根据openid和access_token 请求接口
+            $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
+            //请求方式
+            $json_user_info=file_get_contents($url);
+            //转为数组
+            $user_info_arr=json_decode($json_user_info,true);
+            $openid=$user_info_arr['openid'];
+            session(['openid'=>$openid]);
+            return view('login');
+        }else{
+            return view('login');
+        }
+
     }
     //根据openid入库
     public function user_index(){
@@ -141,7 +146,7 @@ class LoginController extends Controller
                 echo "<script>alert('绑定成功');location.href='/user_login';</script>";die;
             }else{
                 //密码不相等
-                echo "<script>alert('绑定失败');location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx98fcb5c895c99886&redirect_uri='.urlencode('http://1906liqianqian.comcto.com/user_login').'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';</script>";die;
+                echo "<script>alert('绑定失败');location.href='http://1906liqianqian.comcto.com/user_login';</script>";die;
             }
         }else{
             echo "<script>alert('用户不存在');location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx98fcb5c895c99886&redirect_uri='.urlencode('http://1906liqianqian.comcto.com/user_login').'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';</script>";die;
