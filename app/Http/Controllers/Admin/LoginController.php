@@ -138,7 +138,7 @@ class LoginController extends Controller
             //密码相等
             if($res['pwd']==$pwd){
                 Login::where($where)->update(['openid'=>$openid]);
-                echo "<script>alert('绑定成功');location.href='';</script>";die;
+                echo "<script>alert('绑定成功');location.href='/user_login';</script>";die;
             }else{
                 //密码不相等
                 echo "<script>alert('绑定失败');location.href='/user_login';</script>";die;
