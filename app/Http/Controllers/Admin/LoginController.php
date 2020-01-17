@@ -141,10 +141,10 @@ class LoginController extends Controller
                 echo "<script>alert('绑定成功');location.href='/user_login';</script>";die;
             }else{
                 //密码不相等
-                echo "<script>alert('绑定失败');location.href='/user_login';</script>";die;
+                echo "<script>alert('绑定失败');location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx98fcb5c895c99886&redirect_uri='.urlencode('http://1906liqianqian.comcto.com/user_login').'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';</script>";die;
             }
         }else{
-            echo "<script>alert('用户不存在');location.href='/user_login';</script>";die;
+            echo "<script>alert('用户不存在');location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx98fcb5c895c99886&redirect_uri='.urlencode('http://1906liqianqian.comcto.com/user_login').'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';</script>";die;
         }
     }
 }
