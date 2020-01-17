@@ -146,10 +146,10 @@ class LoginController extends Controller
                 echo "<script>alert('绑定成功');</script>";die;
             }else{
                 //密码不相等
-                echo "<script>alert('绑定失败');location.href='http://1906liqianqian.comcto.com/user_login';</script>";die;
+                echo "<script>alert('绑定失败');</script>";die;
             }
         }else{
-            echo "<script>alert('用户不存在');location.href='http://1906liqianqian.comcto.com/user_login';</script>";die;
+            echo "<script>alert('用户不存在');</script>";die;
         }
     }
 }
