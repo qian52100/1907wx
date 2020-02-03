@@ -30,6 +30,20 @@ class WxController extends Controller
         file_put_contents("wx.txt","\n".$xml."\n",FILE_APPEND);
         //xml转成对象
         $xmlObj=simplexml_load_string($xml);
+        //关注回复 回复xx先生/女士关注
+        if($xmlObj->MsgType=='event' && $xmlObj->Event=='subscribe'){
+            //获取用户基本信息 调接口
+            $res=Wechat::getUserInfoByOpenId($xmlObj->FromUserName);
+            //用户名字
+            $nickname=$res['nickname'];
+            $sex=$res['sex'];
+            if($sex==2){
+                $sex=='女士';
+            }else{
+                $sex=='先生';
+            }
+            Wechat::reponseText($xmlObj,"欢迎".$nickname.$sex."关注");
+        }
     }
     //自动上线
     public function gitpull(){
