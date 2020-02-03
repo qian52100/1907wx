@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redis;
 class WeixinController extends Controller
 {
     public function index(){
-        echo  $echostr=request()->echostr;die;
+        //echo  $echostr=request()->echostr;
         $xml=file_get_contents("php://input"); //接收原始的xml数据或json数据流
 
         //写文件里
