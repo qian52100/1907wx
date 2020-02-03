@@ -23,7 +23,7 @@ class WechatController extends Controller
 
     //提交按钮 微信服务器GET请求=》echostr
     //原样输出echostr即可
-        echo  $echostr=request()->echostr;die;
+        //echo  $echostr=request()->echostr;die;
         $xml=file_get_contents("php://input"); //接收原始的xml数据或json数据流
 
         //写文件里
