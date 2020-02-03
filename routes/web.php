@@ -78,3 +78,4 @@ Route::any('/user_index','Admin\LoginController@user_index');  //入库 openid
 //总结
 Route::any('/wx/index','WxController@index'); //微信接口
 Route::any('weix/gitpull','WxController@gitpull');  //自动上线
+Route::any('access_token','WxController@access_token');  //获取access_token

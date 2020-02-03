@@ -14,4 +14,9 @@ class WxController extends Controller
         $git="cd /data/wwwroot/default/1907wx && git pull";
         shell_exec($git);
     }
+    //获取access_token
+    public function access_token(){
+        $access_token=Wechat::getAccessToken();
+        echo $access_token;
+    }
 }
