@@ -31,12 +31,12 @@ class WxController extends Controller
         //xml转成对象
         $xmlObj=simplexml_load_string($xml);
         //关注回复 回复xx先生/女士关注
-        if($xmlObj->MsgType=='event' && $xmlObj->Event=='subscribe'){
+        if($xmlObj->MsgType=="event" && $xmlObj->Event=="subscribe"){
             //获取用户基本信息 调接口
             $res=Wechat::getUserInfoByOpenId($xmlObj->FromUserName);
-            //用户名字
-            $nickname=$res['nickname'];
-            $sex=$res['sex'];
+            var_dump($res);die;
+            $nickname=$res['nickname'];  //用户名字
+            $sex=$res['sex'];  //用户性别
             if($sex==2){
                 $sex='女士';
             }else{
