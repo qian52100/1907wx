@@ -24,6 +24,7 @@ class WeixinController extends Controller
         //关注回复  回复欢迎xxx/先生/女士关注
         if($xmlObj->MsgType=="event" && $xmlObj->Event=="subscribe"){
             $res=Wechat::getUserInfoByOpenId($xmlObj->FromUserName);  //获取用户信息  调接口
+            var_dump($res);die;
             //xml中获取渠道标识
             $channel_status=$xmlObj->EventKey;
             $channel_status=ltrim($channel_status,'qrscene_');
