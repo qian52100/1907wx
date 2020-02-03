@@ -73,3 +73,7 @@ Route::any('login/test','Admin\LoginController@test');  //模板消息
 Route::any('/user_login','Admin\LoginController@user_login');  //用户绑定登陆
 
 Route::any('/user_index','Admin\LoginController@user_index');  //入库 openid
+
+
+//总结
+Route::any('/wx/index','WxController@index'); //微信接口
