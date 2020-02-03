@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Tools\Wechat;
 class WxController extends Controller
 {
     public function index(){
