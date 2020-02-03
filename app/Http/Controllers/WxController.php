@@ -24,6 +24,12 @@ class WxController extends Controller
         //原样输出echostr即可
         //echo $echostr=request()->echostr;die;
 
+        //接收原始xml数据或原始json数据流
+        $xml=file_get_contents("php://input");
+        //写文件里
+        file_put_contents("wx.txt","\n".$xml."\n",FILE_APPEND);
+        //xml转成对象
+        $xmlObj=simplexml_load_string($xml);
     }
     //自动上线
     public function gitpull(){
