@@ -34,7 +34,6 @@ class WxController extends Controller
         if($xmlObj->MsgType=='event' && $xmlObj->Event=='subscribe'){
             //获取用户基本信息 调接口
             $res=Wechat::getUserInfoByOpenId($xmlObj->FromUserName);
-            var_dump($res);die;
             //用户名字
             $nickname=$res['nickname'];
             $sex=$res['sex'];
