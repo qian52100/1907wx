@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redis;
 class WeixinController extends Controller
 {
     public function index(){
-        //echo  $echostr=request()->echostr;
+        echo  $echostr=request()->echostr;
         $xml=file_get_contents("php://input"); //接收原始的xml数据或json数据流
 
         //写文件里
@@ -343,6 +343,7 @@ class WeixinController extends Controller
 
     //获取access_token
     public function access_token(){
+        echo '1111';
         $access_token=Wechat::getAccessToken();
     }
 

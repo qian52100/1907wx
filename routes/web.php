@@ -61,8 +61,8 @@ Route::prefix('menu/')->group(function () {
 });
 
 Route::any('aaa','WeixinController@groupSending');  //微信群发
-Route::get('wx/test','WeixinController@test');  //测试
-Route::get('wx/auth','WeixinController@auth');  //接收code
+Route::get('wx/test','WeixinController@test');  //获取code
+Route::get('wx/auth','WeixinController@auth');  //接收code换取access_token
 
 Route::any('wx/gitpull','WeixinController@gitpull');  //自动上线
 
